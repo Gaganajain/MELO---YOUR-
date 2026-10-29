@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MELO: your music, your vibe</title>
+  <meta name="description" content="MELO is a private in-browser music player with a live audio visualizer. Drop in your own songs and play.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎧</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-glow" aria-hidden="true"></div>
+
+  <div class="app">
+    <!-- Library -->
+    <aside class="library">
+      <div class="brand">
+        <span class="logo">♪</span>
+        <div>
+          <strong>MELO</strong>
+          <small>your music, your vibe</small>
+        </div>
+      </div>
+
+      <label class="drop" id="drop">
+        <input type="file" id="fileInput" accept="audio/*" multiple hidden>
+        <span class="drop-icon">＋</span>
+        <span><b>Add songs</b><br><small>Click or drag audio files here</small></span>
+      </label>
+
+      <div class="lib-head">
+        <div class="filters">
+          <button class="chip active" data-filter="all">All</button>
+          <button class="chip" data-filter="liked">♥ Liked</button>
+        </div>
+        <input type="search" id="search" placeholder="Search…" aria-label="Search songs">
+      </div>
+
+      <ol class="playlist" id="playlist"></ol>
+      <p class="hint" id="emptyHint">No songs yet. Add your own, or <button class="link" id="demoBtn">load 3 demo tracks</button>.</p>
+    </aside>
+
+    <!-- Player -->
+    <main class="player">
+      <div class="stage">
+        <canvas id="viz" aria-label="Audio visualizer"></canvas>
+        <div class="cover" id="cover"><span id="coverText">♪</span></div>
+      </div>
+
+      <div class="meta">
+        <div>
+          <h1 id="title">Nothing playing</h1>
+          <p id="artist">Add a song to get started</p>
+        </div>
+        <button class="icon like" id="likeBtn" title="Like (L)" aria-label="Like">♡</button>
+      </div>
+
+      <div class="seek">
+        <span id="current">0:00</span>
+        <input type="range" id="progress" min="0" max="1000" value="0" aria-label="Seek">
+        <span id="duration">0:00</span>
+      </div>
+
+      <div class="controls">
+        <button class="icon" id="shuffleBtn" title="Shuffle (S)" aria-label="Shuffle">🔀</button>
+        <button class="icon big" id="prevBtn" title="Previous (←)" aria-label="Previous">⏮</button>
+        <button class="play" id="playBtn" title="Play / Pause (Space)" aria-label="Play">▶</button>
+        <button class="icon big" id="nextBtn" title="Next (→)" aria-label="Next">⏭</button>
+        <button class="icon" id="repeatBtn" title="Repeat (R)" aria-label="Repeat">🔁</button>
+      </div>
+
+      <div class="bottom">
+        <div class="volume">
+          <button class="icon small" id="muteBtn" aria-label="Mute">🔊</button>
+          <input type="range" id="volume" min="0" max="1" step="0.01" value="0.8" aria-label="Volume">
+        </div>
+        <div class="viz-modes">
+          <button class="chip active" data-mode="bars">Bars</button>
+          <button class="chip" data-mode="wave">Wave</button>
+          <button class="chip" data-mode="ring">Ring</button>
+        </div>
+      </div>
+
+      <p class="keys">Space play/pause · ← → previous/next · ↑ ↓ volume · S shuffle · R repeat · L like</p>
+    </main>
+  </div>
+
+  <audio id="audio"></audio>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
